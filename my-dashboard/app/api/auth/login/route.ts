@@ -11,8 +11,11 @@ export async function POST(req: NextRequest) {
   return NextResponse.json(data, { status: res.status });
 }
 
-export async function GET() {
-    const res = await fetch('http://localhost:8000/api/users');
+export async function GET(req: NextRequest) {
+    const token = req.headers.get('Authorization')?.replace('Bearer ', '');
+    const res = await fetch('http://localhost:8000/api/users', {
+        headers: { 'Authorization': `Bearer ${token}` },
+    });
     const data = await res.json();
     return NextResponse.json(data);
 }

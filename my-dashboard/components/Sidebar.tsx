@@ -5,9 +5,13 @@ import { useAuth } from '../lib/auth';
 import Link from 'next/link';
 
 export default function Sidebar() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth(); // Adicionei 'logout' ao useAuth
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  const handleLogout = async () => {
+      await logout(); // Chama a função de logout
+      setIsSidebarOpen(false); // Fecha a sidebar no mobile após logout
+  };
   return (
     <>
       {/* Mobile Hamburger Button */}
@@ -46,6 +50,14 @@ export default function Sidebar() {
               <Link href="/admin">Admin</Link>
             </li>
           )}
+          <li className="mb-2">
+              <button
+                  onClick={handleLogout}
+                  className="text-left w-full text-gray-900 dark:text-white hover:text-blue-500 dark:hover:text-blue-400"
+              >
+                  Logout
+              </button>
+          </li>
         </ul>
       </div>
     </>

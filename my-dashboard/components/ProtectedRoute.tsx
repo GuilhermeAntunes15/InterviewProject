@@ -5,13 +5,15 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 export default function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { user } = useAuth();
-  const router = useRouter();
+    const { user, token } = useAuth();
+    const router = useRouter();
 
-  useEffect(() => {
-    if (!user) router.push('/auth/login');
-  }, [user, router]);
+    useEffect(() => {
+        if (!token) { // Só redireciona se não houver token
+            router.push('/auth/login');
+        }
+    }, [token, router]);
 
-  if (!user) return null;
-  return <>{children}</>;
+    if (!token) return null; // Evita renderizar até que o token seja verificado
+    return <>{children}</>;
 }
