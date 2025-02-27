@@ -31,9 +31,10 @@ export default function Profile() {
     setMessage(null);
 
     try {
+      const token = localStorage.getItem('token');
       const response = await fetch('/api/profile', {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ name, email, phone, password: password || undefined }),
       });
 

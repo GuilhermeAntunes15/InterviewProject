@@ -13,6 +13,7 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
     const token = req.headers.get('Authorization')?.replace('Bearer ', '');
+    console.log(token);
     const res = await fetch('http://localhost:8000/api/users', {
         headers: { 'Authorization': `Bearer ${token}` },
     });

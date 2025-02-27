@@ -29,7 +29,7 @@ export default function WeatherWidget() {
     return (
         <div className="p-4 bg-white rounded shadow">
             <h3>Weather in London</h3>
-            <p>Temperature: {data.main.temp}°C</p>
+            <p>Temperature: {data.main.temp}°K</p>
             <p>Condition: {data.weather[0].description}</p>
         </div>
     );

@@ -18,10 +18,24 @@ export default function Admin() {
 
         const fetchData = async () => {
             try {
+                const token = localStorage.getItem('token');
+
                 const [usersRes, statusRes, healthRes] = await Promise.all([
-                    fetch('/api/users'),
-                    fetch('/api/system/status'),
-                    fetch('/api/health/check'),
+                    fetch('/api/users', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        },
+                    }),
+                    fetch('/api/system/status', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        },
+                    }),
+                    fetch('/api/health/check', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        },
+                    }),
                 ]);
 
                 if (!usersRes.ok || !statusRes.ok || !healthRes.ok) 
